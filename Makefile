@@ -1,4 +1,4 @@
-SRCDIR       =  dot
+SRCDIR       =  dot_lang
 CXXFLAGS	 =  -O2 -g -Wall -fmessage-length=0 -I../parse
 SOURCES	    :=  $(shell find $(SRCDIR) -name '*.cpp')
 OBJECTS	    :=  $(SOURCES:%.cpp=%.o)
