@@ -8,8 +8,8 @@
 #include <parse/parse.h>
 #include <parse/syntax.h>
 
-#ifndef node_id_h
-#define node_id_h
+#ifndef dot_lang_node_id_h
+#define dot_lang_node_id_h
 
 namespace dot_lang
 {

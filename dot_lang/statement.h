@@ -10,8 +10,8 @@
 #include <parse/parse.h>
 #include <parse/syntax.h>
 
-#ifndef statement_h
-#define statement_h
+#ifndef dot_lang_statement_h
+#define dot_lang_statement_h
 
 namespace dot_lang
 {

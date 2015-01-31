@@ -10,8 +10,8 @@
 #include <parse/parse.h>
 #include <parse/syntax.h>
 
-#ifndef graph_h
-#define graph_h
+#ifndef dot_lang_graph_h
+#define dot_lang_graph_h
 
 namespace dot_lang
 {

@@ -1,5 +1,5 @@
 SRCDIR       =  dot_lang
-CXXFLAGS	 =  -O2 -g -Wall -fmessage-length=0 -I../parse
+CXXFLAGS	 =  -O2 -g -Wall -fmessage-length=0 -I../parse -I../common
 SOURCES	    :=  $(shell find $(SRCDIR) -name '*.cpp')
 OBJECTS	    :=  $(SOURCES:%.cpp=%.o)
 TARGET		 =  lib$(SRCDIR).a

@@ -10,8 +10,8 @@
 #include <parse/parse.h>
 #include <parse/syntax.h>
 
-#ifndef attribute_list_h
-#define attribute_list_h
+#ifndef dot_lang_attribute_list_h
+#define dot_lang_attribute_list_h
 
 namespace dot_lang
 {

@@ -10,8 +10,8 @@
 #include <parse/parse.h>
 #include <parse/syntax.h>
 
-#ifndef assignment_list_h
-#define assignment_list_h
+#ifndef dot_lang_assignment_list_h
+#define dot_lang_assignment_list_h
 
 namespace dot_lang
 {

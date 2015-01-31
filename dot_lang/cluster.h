@@ -10,8 +10,8 @@
 #include <parse/parse.h>
 #include <parse/syntax.h>
 
-#ifndef cluster_h
-#define cluster_h
+#ifndef dot_lang_cluster_h
+#define dot_lang_cluster_h
 
 namespace dot_lang
 {
