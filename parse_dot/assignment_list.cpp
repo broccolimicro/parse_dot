@@ -8,7 +8,7 @@
 #include "assignment_list.h"
 #include <parse/default/symbol.h>
 
-namespace dot_lang
+namespace parse_dot
 {
 
 assignment_list::assignment_list()
@@ -76,7 +76,7 @@ void assignment_list::register_syntax(tokenizer &tokens)
 	}
 }
 
-string assignment_list::to_string(string tab)
+string assignment_list::to_string(string tab) const
 {
 	string result = "";
 	if (as.size() > 0)

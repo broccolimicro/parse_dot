@@ -12,7 +12,7 @@
 #include <parse/default/instance.h>
 #include <parse/default/symbol.h>
 
-namespace dot_lang
+namespace parse_dot
 {
 statement::statement()
 {
@@ -112,7 +112,7 @@ void statement::register_syntax(tokenizer &tokens)
 	}
 }
 
-string statement::to_string(string tab)
+string statement::to_string(string tab) const
 {
 	string result;
 	if (statement_type != "attribute")

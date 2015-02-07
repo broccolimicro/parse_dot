@@ -8,7 +8,7 @@
 #include "attribute_list.h"
 #include <parse/default/symbol.h>
 
-namespace dot_lang
+namespace parse_dot
 {
 
 attribute_list::attribute_list()
@@ -55,7 +55,7 @@ void attribute_list::register_syntax(tokenizer &tokens)
 	}
 }
 
-string attribute_list::to_string(string tab)
+string attribute_list::to_string(string tab) const
 {
 	string result;
 	for (size_t i = 0; i < attributes.size(); i++)

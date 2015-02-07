@@ -9,7 +9,7 @@
 #include <parse/default/instance.h>
 #include <parse/default/symbol.h>
 
-namespace dot_lang
+namespace parse_dot
 {
 
 graph::graph()
@@ -102,7 +102,7 @@ void graph::register_syntax(tokenizer &tokens)
 	}
 }
 
-string graph::to_string(string tab)
+string graph::to_string(string tab) const
 {
 	string result = "";
 	if (strict)

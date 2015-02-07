@@ -11,7 +11,7 @@
 #include <parse/default/number.h>
 #include <parse/default/symbol.h>
 
-namespace dot_lang
+namespace parse_dot
 {
 node_id::node_id()
 {
@@ -139,7 +139,7 @@ void node_id::register_syntax(tokenizer &tokens)
 	}
 }
 
-string node_id::to_string(string tab)
+string node_id::to_string(string tab) const
 {
 	string result = "";
 	if (id != "")

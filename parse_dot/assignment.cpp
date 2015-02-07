@@ -11,7 +11,7 @@
 #include <parse/default/number.h>
 #include <parse/default/symbol.h>
 
-namespace dot_lang
+namespace parse_dot
 {
 assignment::assignment()
 {
@@ -82,7 +82,7 @@ void assignment::register_syntax(tokenizer &tokens)
 	}
 }
 
-string assignment::to_string(string tab)
+string assignment::to_string(string tab) const
 {
 	string result;
 	if (first != "")

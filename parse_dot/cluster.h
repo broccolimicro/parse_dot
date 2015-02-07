@@ -10,10 +10,10 @@
 #include <parse/parse.h>
 #include <parse/syntax.h>
 
-#ifndef dot_lang_cluster_h
-#define dot_lang_cluster_h
+#ifndef parse_dot_cluster_h
+#define parse_dot_cluster_h
 
-namespace dot_lang
+namespace parse_dot
 {
 struct cluster : parse::syntax
 {
@@ -27,7 +27,7 @@ struct cluster : parse::syntax
 	static bool is_next(configuration &config, tokenizer &tokens, int i = 1);
 	static void register_syntax(tokenizer &tokens);
 
-	string to_string(string tab = "");
+	string to_string(string tab = "") const;
 };
 }
 

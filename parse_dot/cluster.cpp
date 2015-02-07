@@ -7,7 +7,7 @@
 
 #include "cluster.h"
 
-namespace dot_lang
+namespace parse_dot
 {
 
 cluster::cluster()
@@ -56,7 +56,7 @@ void cluster::register_syntax(tokenizer &tokens)
 	}
 }
 
-string cluster::to_string(string tab)
+string cluster::to_string(string tab) const
 {
 	string result = "";
 	for (int i = 0; i < (int)graphs.size(); i++)

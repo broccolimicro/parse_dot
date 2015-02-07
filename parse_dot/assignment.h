@@ -8,10 +8,10 @@
 #include <parse/parse.h>
 #include <parse/syntax.h>
 
-#ifndef dot_lang_assignment_h
-#define dot_lang_assignment_h
+#ifndef parse_dot_assignment_h
+#define parse_dot_assignment_h
 
-namespace dot_lang
+namespace parse_dot
 {
 
 struct assignment : parse::syntax
@@ -28,7 +28,7 @@ struct assignment : parse::syntax
 	static bool is_next(configuration &config, tokenizer &tokens, int i = 1);
 	static void register_syntax(tokenizer &tokens);
 
-	string to_string(string tab = "");
+	string to_string(string tab = "") const;
 };
 
 }
