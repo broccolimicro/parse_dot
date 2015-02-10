@@ -19,13 +19,13 @@ namespace parse_dot
 struct assignment_list : parse::syntax
 {
 	assignment_list();
-	assignment_list(configuration &config, tokenizer &tokens);
+	assignment_list(tokenizer &tokens, void *data = NULL);
 	~assignment_list();
 
 	vector<assignment> as;
 
-	void parse(configuration &config, tokenizer &tokens);
-	static bool is_next(configuration &config, tokenizer &tokens, int i = 1);
+	void parse(tokenizer &tokens, void *data = NULL);
+	static bool is_next(tokenizer &tokens, int i = 1, void *data = NULL);
 	static void register_syntax(tokenizer &tokens);
 
 	string to_string(string tab = "") const;

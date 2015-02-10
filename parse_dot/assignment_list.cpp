@@ -16,19 +16,19 @@ assignment_list::assignment_list()
 	debug_name = "assignment_list";
 }
 
-assignment_list::assignment_list(configuration &config, tokenizer &tokens)
+assignment_list::assignment_list(tokenizer &tokens, void *data)
 {
 	debug_name = "assignment_list";
-	parse(config, tokens);
+	parse(tokens, data);
 }
 
 assignment_list::~assignment_list()
 {
 }
 
-void assignment_list::parse(configuration &config, tokenizer &tokens)
+void assignment_list::parse(tokenizer &tokens, void *data)
 {
-	valid = true;
+	tokens.syntax_start(this);
 
 	tokens.increment(true);
 	tokens.expect("]");
@@ -39,12 +39,12 @@ void assignment_list::parse(configuration &config, tokenizer &tokens)
 	tokens.increment(true);
 	tokens.expect("[");
 
-	if (tokens.decrement(config, __FILE__, __LINE__))
+	if (tokens.decrement(__FILE__, __LINE__, data))
 		tokens.next();
 
-	while (tokens.decrement(config, __FILE__, __LINE__))
+	while (tokens.decrement(__FILE__, __LINE__, data))
 	{
-		as.push_back(assignment(config, tokens));
+		as.push_back(assignment(tokens, data));
 
 		tokens.increment(false);
 		tokens.expect<assignment>();
@@ -53,15 +53,17 @@ void assignment_list::parse(configuration &config, tokenizer &tokens)
 		tokens.expect(";");
 		tokens.expect(",");
 
-		if (tokens.decrement(config, __FILE__, __LINE__))
+		if (tokens.decrement(__FILE__, __LINE__, data))
 			tokens.next();
 	}
 
-	if (tokens.decrement(config, __FILE__, __LINE__))
+	if (tokens.decrement(__FILE__, __LINE__, data))
 		tokens.next();
+
+	tokens.syntax_end(this);
 }
 
-bool assignment_list::is_next(configuration &config, tokenizer &tokens, int i)
+bool assignment_list::is_next(tokenizer &tokens, int i, void *data)
 {
 	return tokens.is_next("[", i);
 }

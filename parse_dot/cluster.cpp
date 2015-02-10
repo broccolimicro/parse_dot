@@ -15,10 +15,10 @@ cluster::cluster()
 	debug_name = "cluster";
 }
 
-cluster::cluster(configuration &config, tokenizer &tokens)
+cluster::cluster(tokenizer &tokens, void *data)
 {
 	debug_name = "cluster";
-	parse(config, tokens);
+	parse(tokens, data);
 }
 
 cluster::~cluster()
@@ -26,25 +26,27 @@ cluster::~cluster()
 
 }
 
-void cluster::parse(configuration &config, tokenizer &tokens)
+void cluster::parse(tokenizer &tokens, void *data)
 {
-	valid = true;
+	tokens.syntax_start(this);
 
 	tokens.increment(false);
 	tokens.expect<graph>();
 
-	while (tokens.decrement(config, __FILE__, __LINE__))
+	while (tokens.decrement(__FILE__, __LINE__, data))
 	{
-		graphs.push_back(graph(config, tokens));
+		graphs.push_back(graph(tokens, data));
 
 		tokens.increment(false);
 		tokens.expect<graph>();
 	}
+
+	tokens.syntax_end(this);
 }
 
-bool cluster::is_next(configuration &config, tokenizer &tokens, int i)
+bool cluster::is_next(tokenizer &tokens, int i, void *data)
 {
-	return graph::is_next(config, tokens, i);
+	return graph::is_next(tokens, i, data);
 }
 
 void cluster::register_syntax(tokenizer &tokens)

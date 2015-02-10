@@ -19,10 +19,10 @@ statement::statement()
 	debug_name = "statement";
 }
 
-statement::statement(configuration &config, tokenizer &tokens)
+statement::statement(tokenizer &tokens, void *data)
 {
 	debug_name = "statement";
-	parse(config, tokens);
+	parse(tokens, data);
 }
 
 statement::~statement()
@@ -30,9 +30,9 @@ statement::~statement()
 
 }
 
-void statement::parse(configuration &config, tokenizer &tokens)
+void statement::parse(tokenizer &tokens, void *data)
 {
-	valid = true;
+	tokens.syntax_start(this);
 
 	statement_type = "node";
 	tokens.increment(true);
@@ -42,12 +42,12 @@ void statement::parse(configuration &config, tokenizer &tokens)
 	tokens.expect<node_id>();
 	tokens.expect("subgraph");
 
-	if (tokens.decrement(config, __FILE__, __LINE__))
+	if (tokens.decrement(__FILE__, __LINE__, data))
 	{
 		if (tokens.found("subgraph"))
-			nodes.push_back(new graph(config, tokens));
+			nodes.push_back(new graph(tokens, data));
 		else if (tokens.found<node_id>())
-			nodes.push_back(new node_id(config, tokens));
+			nodes.push_back(new node_id(tokens, data));
 		else
 		{
 			statement_type = "attribute";
@@ -60,7 +60,7 @@ void statement::parse(configuration &config, tokenizer &tokens)
 		tokens.increment(false);
 		tokens.expect("->");
 		tokens.expect("--");
-		while (tokens.decrement(config, __FILE__, __LINE__))
+		while (tokens.decrement(__FILE__, __LINE__, data))
 		{
 			statement_type = "edge";
 			tokens.next();
@@ -73,12 +73,12 @@ void statement::parse(configuration &config, tokenizer &tokens)
 			tokens.expect<node_id>();
 			tokens.expect("subgraph");
 
-			if (tokens.decrement(config, __FILE__, __LINE__))
+			if (tokens.decrement(__FILE__, __LINE__, data))
 			{
 				if (tokens.found("subgraph"))
-					nodes.push_back(new graph(config, tokens));
+					nodes.push_back(new graph(tokens, data));
 				else if (tokens.found<node_id>())
-					nodes.push_back(new node_id(config, tokens));
+					nodes.push_back(new node_id(tokens, data));
 			}
 		}
 	}
@@ -86,13 +86,15 @@ void statement::parse(configuration &config, tokenizer &tokens)
 	tokens.increment(statement_type == "attribute");
 	tokens.expect<attribute_list>();
 
-	if (tokens.decrement(config, __FILE__, __LINE__))
-		attributes.parse(config, tokens);
+	if (tokens.decrement(__FILE__, __LINE__, data))
+		attributes.parse(tokens, data);
+
+	tokens.syntax_end(this);
 }
 
-bool statement::is_next(configuration &config, tokenizer &tokens, int i)
+bool statement::is_next(tokenizer &tokens, int i, void *data)
 {
-	return (node_id::is_next(config, tokens, i) ||
+	return (node_id::is_next(tokens, i, data) ||
 			tokens.is_next("subgraph") ||
 			tokens.is_next("graph") ||
 			tokens.is_next("node") ||

@@ -18,10 +18,10 @@ node_id::node_id()
 	debug_name = "node_id";
 }
 
-node_id::node_id(configuration &config, tokenizer &tokens)
+node_id::node_id(tokenizer &tokens, void *data)
 {
 	debug_name = "node_id";
-	parse(config, tokens);
+	parse(tokens, data);
 }
 
 node_id::node_id(string id)
@@ -49,16 +49,16 @@ node_id::~node_id()
 {
 }
 
-void node_id::parse(configuration &config, tokenizer &tokens)
+void node_id::parse(tokenizer &tokens, void *data)
 {
-	valid = true;
+	tokens.syntax_start(this);
 
 	// Parse the ID
 	tokens.increment(true);
 	tokens.expect<parse::instance>();
 	tokens.expect<parse::text>();
 	tokens.expect<parse::number>();
-	if (tokens.decrement(config, __FILE__, __LINE__))
+	if (tokens.decrement(__FILE__, __LINE__, data))
 	{
 		id = tokens.next();
 
@@ -66,7 +66,7 @@ void node_id::parse(configuration &config, tokenizer &tokens)
 		tokens.increment(false);
 		tokens.expect(":");
 
-		if (tokens.decrement(config, __FILE__, __LINE__))
+		if (tokens.decrement(__FILE__, __LINE__, data))
 		{
 			tokens.next();
 
@@ -84,7 +84,7 @@ void node_id::parse(configuration &config, tokenizer &tokens)
 			tokens.expect("nw");
 			tokens.expect("c");
 			tokens.expect("_");
-			if (tokens.decrement(config, __FILE__, __LINE__))
+			if (tokens.decrement(__FILE__, __LINE__, data))
 			{
 				if (tokens.found("n") || tokens.found("ne") || tokens.found("e") || tokens.found("se") || tokens.found("s") ||
 					tokens.found("sw") || tokens.found("w") || tokens.found("nw") || tokens.found("c") || tokens.found("_"))
@@ -97,7 +97,7 @@ void node_id::parse(configuration &config, tokenizer &tokens)
 					tokens.increment(false);
 					tokens.expect(":");
 
-					if (tokens.decrement(config, __FILE__, __LINE__))
+					if (tokens.decrement(__FILE__, __LINE__, data))
 					{
 						tokens.next();
 						tokens.increment(true);
@@ -111,16 +111,18 @@ void node_id::parse(configuration &config, tokenizer &tokens)
 						tokens.expect("nw");
 						tokens.expect("c");
 						tokens.expect("_");
-						if (tokens.decrement(config, __FILE__, __LINE__))
+						if (tokens.decrement(__FILE__, __LINE__, data))
 							compass = tokens.next();
 					}
 				}
 			}
 		}
 	}
+
+	tokens.syntax_end(this);
 }
 
-bool node_id::is_next(configuration &config, tokenizer &tokens, int i)
+bool node_id::is_next(tokenizer &tokens, int i, void *data)
 {
 	return (tokens.is_next<parse::instance>(i) ||
 			tokens.is_next<parse::number>(i) ||

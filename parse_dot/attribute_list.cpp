@@ -16,33 +16,37 @@ attribute_list::attribute_list()
 	debug_name = "attribute_list";
 }
 
-attribute_list::attribute_list(configuration &config, tokenizer &tokens)
+attribute_list::attribute_list(tokenizer &tokens, void *data)
 {
 	debug_name = "attribute_list";
-	parse(config, tokens);
+	parse(tokens, data);
 }
 
 attribute_list::~attribute_list()
 {
 }
 
-void attribute_list::parse(configuration &config, tokenizer &tokens)
+void attribute_list::parse(tokenizer &tokens, void *data)
 {
+	tokens.syntax_start(this);
+
 	tokens.increment(false);
 	tokens.expect<assignment_list>();
 
-	while (tokens.decrement(config, __FILE__, __LINE__))
+	while (tokens.decrement(__FILE__, __LINE__, data))
 	{
-		attributes.push_back(assignment_list(config, tokens));
+		attributes.push_back(assignment_list(tokens, data));
 
 		tokens.increment(false);
 		tokens.expect<assignment_list>();
 	}
+
+	tokens.syntax_end(this);
 }
 
-bool attribute_list::is_next(configuration &config, tokenizer &tokens, int i)
+bool attribute_list::is_next(tokenizer &tokens, int i, void *data)
 {
-	return assignment_list::is_next(config, tokens, i);
+	return assignment_list::is_next(tokens, i, data);
 }
 
 void attribute_list::register_syntax(tokenizer &tokens)

@@ -18,20 +18,20 @@ graph::graph()
 	strict = false;
 }
 
-graph::graph(configuration &config, tokenizer &tokens)
+graph::graph(tokenizer &tokens, void *data)
 {
 	debug_name = "graph";
 	strict = false;
-	parse(config, tokens);
+	parse(tokens, data);
 }
 
 graph::~graph()
 {
 }
 
-void graph::parse(configuration &config, tokenizer &tokens)
+void graph::parse(tokenizer &tokens, void *data)
 {
-	valid = true;
+	tokens.syntax_start(this);
 
 	tokens.increment(true);
 	tokens.expect("}");
@@ -53,24 +53,24 @@ void graph::parse(configuration &config, tokenizer &tokens)
 	tokens.increment(false);
 	tokens.expect("strict");
 
-	if (tokens.decrement(config, __FILE__, __LINE__))
+	if (tokens.decrement(__FILE__, __LINE__, data))
 	{
 		tokens.next();
 		strict = true;
 	}
 
-	if (tokens.decrement(config, __FILE__, __LINE__))
+	if (tokens.decrement(__FILE__, __LINE__, data))
 		type = tokens.next();
 
-	if (tokens.decrement(config, __FILE__, __LINE__))
+	if (tokens.decrement(__FILE__, __LINE__, data))
 		id = tokens.next();
 
-	if (tokens.decrement(config, __FILE__, __LINE__))
+	if (tokens.decrement(__FILE__, __LINE__, data))
 		tokens.next();
 
-	while (tokens.decrement(config, __FILE__, __LINE__))
+	while (tokens.decrement(__FILE__, __LINE__, data))
 	{
-		statements.push_back(statement(config, tokens));
+		statements.push_back(statement(tokens, data));
 
 		tokens.increment(false);
 		tokens.expect<statement>();
@@ -78,15 +78,17 @@ void graph::parse(configuration &config, tokenizer &tokens)
 		tokens.increment(false);
 		tokens.expect(";");
 
-		if (tokens.decrement(config, __FILE__, __LINE__))
+		if (tokens.decrement(__FILE__, __LINE__, data))
 			tokens.next();
 	}
 
-	if (tokens.decrement(config, __FILE__, __LINE__))
+	if (tokens.decrement(__FILE__, __LINE__, data))
 		tokens.next();
+
+	tokens.syntax_end(this);
 }
 
-bool graph::is_next(configuration &config, tokenizer &tokens, int i)
+bool graph::is_next(tokenizer &tokens, int i, void *data)
 {
 	return (tokens.is_next("strict") || tokens.is_next("graph") || tokens.is_next("digraph") || tokens.is_next("subgraph"));
 }
