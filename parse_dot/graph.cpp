@@ -117,4 +117,9 @@ string graph::to_string(string tab) const
 	return result;
 }
 
+parse::syntax *graph::clone() const
+{
+	return new graph(*this);
+}
+
 }

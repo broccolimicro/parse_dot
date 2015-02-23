@@ -96,4 +96,9 @@ string assignment_list::to_string(string tab) const
 	return result;
 }
 
+parse::syntax *assignment_list::clone() const
+{
+	return new assignment_list(*this);
+}
+
 }

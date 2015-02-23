@@ -67,4 +67,9 @@ string attribute_list::to_string(string tab) const
 	return result;
 }
 
+parse::syntax *attribute_list::clone() const
+{
+	return new attribute_list(*this);
+}
+
 }

@@ -158,4 +158,9 @@ string node_id::to_string(string tab) const
 	return result;
 }
 
+parse::syntax *node_id::clone() const
+{
+	return new node_id(*this);
+}
+
 }

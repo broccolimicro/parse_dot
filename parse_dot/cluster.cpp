@@ -68,4 +68,9 @@ string cluster::to_string(string tab) const
 	}
 	return result;
 }
+
+parse::syntax *cluster::clone() const
+{
+	return new cluster(*this);
+}
 }

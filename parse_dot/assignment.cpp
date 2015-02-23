@@ -122,4 +122,9 @@ string assignment::to_string(string tab) const
 	return result;
 }
 
+parse::syntax *assignment::clone() const
+{
+	return new assignment(*this);
+}
+
 }

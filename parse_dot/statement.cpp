@@ -135,4 +135,9 @@ string statement::to_string(string tab) const
 	return result;
 }
 
+parse::syntax *statement::clone() const
+{
+	return new statement(*this);
+}
+
 }

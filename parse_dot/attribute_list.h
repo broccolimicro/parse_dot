@@ -29,6 +29,7 @@ struct attribute_list : parse::syntax
 	static void register_syntax(tokenizer &tokens);
 
 	string to_string(string tab = "") const;
+	parse::syntax *clone() const;
 };
 
 }
