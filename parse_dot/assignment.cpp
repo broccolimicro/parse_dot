@@ -92,18 +92,15 @@ void assignment::register_syntax(tokenizer &tokens)
 
 string assignment::to_string(string tab) const
 {
-	if (first.size() == 0 || second.size() == 0)
-		return "";
-
-	bool first_text = false;
-	bool second_text = false;
+	bool first_text = first.size() == 0;
+	bool second_text = second.size() == 0;
 
 	for (int i = 0; i < (int)first.size(); i++)
-		if (!((first[i] >= 'a' && first[i] <= 'z') || (first[i] >= 'A' && first[i] <= 'Z') || (first[i] >= '0' && first[i] <= '9') || first[i] == '_' || first[i] == '.'))
+		if (!((first[i] >= 'a' && first[i] <= 'z') || (first[i] >= 'A' && first[i] <= 'Z') || (first[i] >= '0' && first[i] <= '9') || first[i] == '_'))
 			first_text = true;
 
 	for (int i = 0; i < (int)second.size(); i++)
-		if (!((second[i] >= 'a' && second[i] <= 'z') || (second[i] >= 'A' && second[i] <= 'Z') || (second[i] >= '0' && second[i] <= '9') || second[i] == '_' || second[i] == '.'))
+		if (!((second[i] >= 'a' && second[i] <= 'z') || (second[i] >= 'A' && second[i] <= 'Z') || (second[i] >= '0' && second[i] <= '9') || second[i] == '_'))
 			second_text = true;
 
 	string result;
