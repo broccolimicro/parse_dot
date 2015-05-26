@@ -95,13 +95,37 @@ string assignment::to_string(string tab) const
 	bool first_text = first.size() == 0;
 	bool second_text = second.size() == 0;
 
+	bool letter = false;
+	bool number = false;
+	bool symbol = false;
 	for (int i = 0; i < (int)first.size(); i++)
-		if (!((first[i] >= 'a' && first[i] <= 'z') || (first[i] >= 'A' && first[i] <= 'Z') || (first[i] >= '0' && first[i] <= '9') || first[i] == '_'))
-			first_text = true;
+	{
+		if ((first[i] >= 'a' && first[i] <= 'z') || (first[i] >= 'A' && first[i] <= 'Z'))
+			letter = true;
+		else if (first[i] >= '0' && first[i] <= '9')
+			number = true;
+		else
+			symbol = true;
+	}
 
+	if ((letter && number) || symbol)
+		first_text = true;
+
+	letter = false;
+	number = false;
+	symbol = false;
 	for (int i = 0; i < (int)second.size(); i++)
-		if (!((second[i] >= 'a' && second[i] <= 'z') || (second[i] >= 'A' && second[i] <= 'Z') || (second[i] >= '0' && second[i] <= '9') || second[i] == '_'))
-			second_text = true;
+	{
+		if ((second[i] >= 'a' && second[i] <= 'z') || (second[i] >= 'A' && second[i] <= 'Z'))
+			letter = true;
+		else if (second[i] >= '0' && second[i] <= '9')
+			number = true;
+		else
+			symbol = true;
+	}
+
+	if ((letter && number) || symbol)
+		second_text = true;
 
 	string result;
 	if (first_text)
