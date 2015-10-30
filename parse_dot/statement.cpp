@@ -11,6 +11,7 @@
 
 #include <parse/default/instance.h>
 #include <parse/default/symbol.h>
+#include <parse/default/white_space.h>
 
 namespace parse_dot
 {
@@ -111,6 +112,7 @@ void statement::register_syntax(tokenizer &tokens)
 		graph::register_syntax(tokens);
 		tokens.register_token<parse::instance>();
 		tokens.register_token<parse::symbol>();
+		tokens.register_token<parse::white_space>(false);
 	}
 }
 

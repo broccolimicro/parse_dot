@@ -7,6 +7,7 @@
 
 #include "attribute_list.h"
 #include <parse/default/symbol.h>
+#include <parse/default/white_space.h>
 
 namespace parse_dot
 {
@@ -56,6 +57,7 @@ void attribute_list::register_syntax(tokenizer &tokens)
 		tokens.register_syntax<attribute_list>();
 		assignment_list::register_syntax(tokens);
 		tokens.register_token<parse::symbol>();
+		tokens.register_token<parse::white_space>(false);
 	}
 }
 

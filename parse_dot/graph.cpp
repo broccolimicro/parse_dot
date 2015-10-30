@@ -8,6 +8,8 @@
 #include "graph.h"
 #include <parse/default/instance.h>
 #include <parse/default/symbol.h>
+#include <parse/default/white_space.h>
+#include <parse/default/new_line.h>
 
 namespace parse_dot
 {
@@ -101,6 +103,8 @@ void graph::register_syntax(tokenizer &tokens)
 		statement::register_syntax(tokens);
 		tokens.register_token<parse::instance>();
 		tokens.register_token<parse::symbol>();
+		tokens.register_token<parse::white_space>(false);
+		tokens.register_token<parse::new_line>(false);
 	}
 }
 
