@@ -1,14 +1,15 @@
-libparse_dot
+# libparse_dot
+
 This library provides a parser for graphviz dot files.
 
-Dependencies:
-parse
-	common
+**Dependencies**:
 
-*********************************************
-                  BUILD
-*********************************************
+ - parse
+   - common
 
+## BUILD
+
+```
 mkdir project
 cd project
 git clone https://github.com/nbingham1/common.git
@@ -23,11 +24,11 @@ make
 cd ..
 make
 ./test test.dot
+```
 
-*********************************************
-                  main.cpp
-*********************************************
+## main.cpp
 
+```
 #include <common/standard.h>
 #include <parse/parse.h>
 #include <parse/default/block_comment.h>
@@ -64,11 +65,11 @@ int main(int argc, char **argv)
 	complete();
 	return is_clean();
 }
+```
 
-*********************************************
-                 Makefile
-*********************************************
+## Makefile
 
+```
 CXX				= g++
 CC				= gcc
 CFLAGS			= -O2 -g -fmessage-length=0
@@ -87,12 +88,11 @@ $(TARGET): main.o
 
 clean:
 	rm -f *.o $(TARGET) $(TARGET).exe
+```
 
+## test.dot
 
-*********************************************
-                  test.dot
-*********************************************
-
+```
 digraph model
 {
 	subgraph wchb
@@ -240,3 +240,5 @@ digraph model
 		T32->S12;
 	}
 }
+```
+
