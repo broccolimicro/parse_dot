@@ -25,6 +25,7 @@ struct graph : parse::syntax
 	bool strict;
 	string type;
 	string id;
+	vector<assignment> attributes;
 	vector<statement> statements;
 
 	void parse(tokenizer &tokens, void *data = NULL);

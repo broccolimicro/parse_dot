@@ -40,6 +40,7 @@ void graph::parse(tokenizer &tokens, void *data)
 
 	tokens.increment(false);
 	tokens.expect<statement>();
+	tokens.expect<assignment>();
 
 	tokens.increment(true);
 	tokens.expect("{");
@@ -72,10 +73,15 @@ void graph::parse(tokenizer &tokens, void *data)
 
 	while (tokens.decrement(__FILE__, __LINE__, data))
 	{
-		statements.push_back(statement(tokens, data));
+		if (tokens.found<statement>()) {
+			statements.push_back(statement(tokens, data));
+		} else if (tokens.found<assignment>()) {
+			attributes.push_back(assignment(tokens, data));
+		}
 
 		tokens.increment(false);
 		tokens.expect<statement>();
+		tokens.expect<assignment>();
 
 		tokens.increment(false);
 		tokens.expect(";");
@@ -115,6 +121,8 @@ string graph::to_string(string tab) const
 		result += "strict ";
 
 	result += type + " " + id + "\n" + tab + "{" + "\n";
+	for (int i = 0; i < (int)attributes.size(); i++)
+		result += tab + "\t" + attributes[i].to_string(tab + "\t") + ";\n";
 	for (int i = 0; i < (int)statements.size(); i++)
 		result += tab + "\t" + statements[i].to_string(tab + "\t") + "\n";
 	result += tab + "}\n";
