@@ -10,14 +10,14 @@ GTEST_L      := -L$(GTEST)/build/lib -L.
 CXXFLAGS	    = -O2 -g -Wall -fmessage-length=0 $(DEPEND:%=-I../%) -I.
 LDFLAGS		    =  
 
-SOURCES	     := $(shell find $(SRCDIR) -name '*.cpp')
+SOURCES	     := $(shell mkdir -p $(SRCDIR); find $(SRCDIR) -name '*.cpp')
 OBJECTS	     := $(SOURCES:%.cpp=build/%.o)
-DEPS         := $(shell find build/$(SRCDIR) -name '*.d' 2>/dev/null)
+DEPS         := $(shell mkdir -p build/$(SRCDIR); find build/$(SRCDIR) -name '*.d')
 TARGET		    = lib$(NAME).a
 
-TESTS        := $(shell find $(TESTDIR) -name '*.cpp')
+TESTS        := $(shell mkdir -p $(TESTDIR); find $(TESTDIR) -name '*.cpp')
 TEST_OBJECTS := $(TESTS:%.cpp=build/%.o) build/$(TESTDIR)/gtest_main.o
-TEST_DEPS    := $(shell find build/$(TESTDIR) -name '*.d' 2>/dev/null)
+TEST_DEPS    := $(shell mkdir -p build/$(TESTDIR); find build/$(TESTDIR) -name '*.d')
 TEST_TARGET   = test
 
 all: lib
