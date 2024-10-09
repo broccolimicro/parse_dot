@@ -7,7 +7,7 @@ GTEST        := ../../googletest
 GTEST_I      := -I$(GTEST)/googletest/include -I.
 GTEST_L      := -L$(GTEST)/build/lib -L.
 
-CXXFLAGS      = -std=c++14 -O2 -g -Wall -fmessage-length=0 $(DEPEND:%=-I../%) -I.
+CXXFLAGS      = -std=c++17 -O2 -g -Wall -fmessage-length=0 $(DEPEND:%=-I../%) -I.
 LDFLAGS	      =  
 
 SOURCES	     := $(shell mkdir -p $(SRCDIR); find $(SRCDIR) -name '*.cpp')
