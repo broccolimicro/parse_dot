@@ -1,5 +1,6 @@
 *.o
-*.d
 *.a
 *.so
-test_*
+build
+test
+coverage*
