@@ -16,18 +16,18 @@ namespace parse_dot
 {
 assignment::assignment()
 {
-	debug_name = "assignment";
+	debug_name = "dot_assignment";
 }
 
 assignment::assignment(tokenizer &tokens, void *data)
 {
-	debug_name = "assignment";
+	debug_name = "dot_assignment";
 	parse(tokens, data);
 }
 
 assignment::assignment(string first, string second)
 {
-	debug_name = "assignment";
+	debug_name = "dot_assignment";
 	this->first = first;
 	this->second = second;
 	valid = true;

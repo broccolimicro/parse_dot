@@ -16,31 +16,31 @@ namespace parse_dot
 {
 node_id::node_id()
 {
-	debug_name = "node_id";
+	debug_name = "dot_node_id";
 }
 
 node_id::node_id(tokenizer &tokens, void *data)
 {
-	debug_name = "node_id";
+	debug_name = "dot_node_id";
 	parse(tokens, data);
 }
 
 node_id::node_id(string id)
 {
-	debug_name = "node_id";
+	debug_name = "dot_node_id";
 	this->id = id;
 }
 
 node_id::node_id(string id, string port)
 {
-	debug_name = "node_id";
+	debug_name = "dot_node_id";
 	this->id = id;
 	this->port = port;
 }
 
 node_id::node_id(string id, string port, string compass)
 {
-	debug_name = "node_id";
+	debug_name = "dot_node_id";
 	this->id = id;
 	this->port = port;
 	this->compass = compass;

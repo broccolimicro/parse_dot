@@ -17,12 +17,12 @@ namespace parse_dot
 {
 statement::statement()
 {
-	debug_name = "statement";
+	debug_name = "dot_statement";
 }
 
 statement::statement(tokenizer &tokens, void *data)
 {
-	debug_name = "statement";
+	debug_name = "dot_statement";
 	parse(tokens, data);
 }
 

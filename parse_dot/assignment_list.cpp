@@ -14,12 +14,12 @@ namespace parse_dot
 
 assignment_list::assignment_list()
 {
-	debug_name = "assignment_list";
+	debug_name = "dot_assignment_list";
 }
 
 assignment_list::assignment_list(tokenizer &tokens, void *data)
 {
-	debug_name = "assignment_list";
+	debug_name = "dot_assignment_list";
 	parse(tokens, data);
 }
 

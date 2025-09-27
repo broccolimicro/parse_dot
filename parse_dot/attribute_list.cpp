@@ -14,12 +14,12 @@ namespace parse_dot
 
 attribute_list::attribute_list()
 {
-	debug_name = "attribute_list";
+	debug_name = "dot_attribute_list";
 }
 
 attribute_list::attribute_list(tokenizer &tokens, void *data)
 {
-	debug_name = "attribute_list";
+	debug_name = "dot_attribute_list";
 	parse(tokens, data);
 }
 

@@ -16,13 +16,13 @@ namespace parse_dot
 
 graph::graph()
 {
-	debug_name = "graph";
+	debug_name = "dot_graph";
 	strict = false;
 }
 
 graph::graph(tokenizer &tokens, void *data)
 {
-	debug_name = "graph";
+	debug_name = "dot_graph";
 	strict = false;
 	parse(tokens, data);
 }
