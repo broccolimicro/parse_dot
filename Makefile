@@ -106,10 +106,29 @@ build/$(TESTDIR)/gtest_main.o: $(GTEST)/googletest/src/gtest_main.cc
 include $(DEPS) $(TEST_DEPS)
 
 clean:
-	rm -rf build $(TARGET) $(TEST_TARGET) coverage.info coverage_filtered.info coverage_report *.gcda *.gcno
+	rm -rf build $(TARGET) $(TEST_TARGET) $(WASM_BUILD_DIR) coverage.info coverage_filtered.info coverage_report *.gcda *.gcno
 
 clean-test:
 	rm -rf build/$(TESTDIR) $(TEST_TARGET)
 
 clean-coverage:
 	rm -rf coverage.info coverage_filtered.info coverage_report *.gcda *.gcno
+
+
+# wasm support for bin/studio
+WASM_BUILD_DIR = build-wasm
+WASM_TARGET = $(WASM_BUILD_DIR)/lib$(NAME).a
+WASM_CXX = em++
+WASM_CXXFLAGS = -std=c++20 -Os -g0 -fvisibility=hidden
+
+$(WASM_BUILD_DIR)/%.o: $(SRCDIR)/%.cpp
+	@mkdir -p $(@D)
+	$(WASM_CXX) $(WASM_CXXFLAGS) $(INCLUDE_PATHS) -c -o $@ $<
+
+WASM_OBJECTS = $(patsubst $(SRCDIR)/%.cpp,$(WASM_BUILD_DIR)/%.o,$(SOURCES))
+
+$(WASM_TARGET): $(WASM_OBJECTS)
+	@mkdir -p $(@D)
+	emar rcs $@ $^
+
+wasm: $(WASM_TARGET)
