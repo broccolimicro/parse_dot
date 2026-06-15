@@ -97,6 +97,10 @@ string assignment::to_string(string tab) const
 	bool first_text = first.size() == 0;
 	bool second_text = second.size() == 0;
 
+	// Check for HTML labels (enclosed in <...>)
+	bool first_html = (first.size() >= 2 && first[0] == '<' && first[first.size()-1] == '>');
+	bool second_html = (second.size() >= 2 && second[0] == '<' && second[second.size()-1] == '>');
+
 	bool letter = false;
 	bool number = false;
 	bool symbol = false;
@@ -110,7 +114,7 @@ string assignment::to_string(string tab) const
 			symbol = true;
 	}
 
-	if ((letter && number) || symbol)
+	if (!first_html && ((letter && number) || symbol))
 		first_text = true;
 
 	letter = false;
@@ -126,7 +130,7 @@ string assignment::to_string(string tab) const
 			symbol = true;
 	}
 
-	if ((letter && number) || symbol)
+	if (!second_html && ((letter && number) || symbol))
 		second_text = true;
 
 	string result;
