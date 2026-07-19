@@ -17,7 +17,7 @@ namespace parse_dot
 struct node_id : parse::syntax
 {
 	node_id();
-	node_id(tokenizer &tokens, void *data = NULL);
+	node_id(tokenizer &tokens, std::any data=std::any());
 	node_id(string id);
 	node_id(string id, string port);
 	node_id(string id, string port, string compass);
@@ -27,8 +27,8 @@ struct node_id : parse::syntax
 	string port;
 	string compass;
 
-	void parse(tokenizer &tokens, void *data = NULL);
-	static bool is_next(tokenizer &tokens, int i = 1, void *data = NULL);
+	void parse(tokenizer &tokens, std::any data=std::any());
+	static bool is_next(tokenizer &tokens, int i = 1, std::any data=std::any());
 	static void register_syntax(tokenizer &tokens);
 
 	string to_string(string tab = "") const;

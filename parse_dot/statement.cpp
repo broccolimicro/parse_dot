@@ -20,7 +20,7 @@ statement::statement()
 	debug_name = "dot_statement";
 }
 
-statement::statement(tokenizer &tokens, void *data)
+statement::statement(tokenizer &tokens, std::any data)
 {
 	debug_name = "dot_statement";
 	parse(tokens, data);
@@ -31,7 +31,7 @@ statement::~statement()
 
 }
 
-void statement::parse(tokenizer &tokens, void *data)
+void statement::parse(tokenizer &tokens, std::any data)
 {
 	tokens.syntax_start(this);
 
@@ -43,7 +43,7 @@ void statement::parse(tokenizer &tokens, void *data)
 	tokens.expect<node_id>();
 	tokens.expect("subgraph");
 
-	if (tokens.decrement(__FILE__, __LINE__, data))
+	if (tokens.decrement(__FILE__, __LINE__))
 	{
 		if (tokens.found("subgraph"))
 			nodes.push_back(new graph(tokens, data));
@@ -61,7 +61,7 @@ void statement::parse(tokenizer &tokens, void *data)
 		tokens.increment(false);
 		tokens.expect("->");
 		tokens.expect("--");
-		while (tokens.decrement(__FILE__, __LINE__, data))
+		while (tokens.decrement(__FILE__, __LINE__))
 		{
 			statement_type = "edge";
 			tokens.next();
@@ -74,7 +74,7 @@ void statement::parse(tokenizer &tokens, void *data)
 			tokens.expect<node_id>();
 			tokens.expect("subgraph");
 
-			if (tokens.decrement(__FILE__, __LINE__, data))
+			if (tokens.decrement(__FILE__, __LINE__))
 			{
 				if (tokens.found("subgraph"))
 					nodes.push_back(new graph(tokens, data));
@@ -87,13 +87,13 @@ void statement::parse(tokenizer &tokens, void *data)
 	tokens.increment(statement_type == "attribute");
 	tokens.expect<attribute_list>();
 
-	if (tokens.decrement(__FILE__, __LINE__, data))
+	if (tokens.decrement(__FILE__, __LINE__))
 		attributes.parse(tokens, data);
 
 	tokens.syntax_end(this);
 }
 
-bool statement::is_next(tokenizer &tokens, int i, void *data)
+bool statement::is_next(tokenizer &tokens, int i, std::any data)
 {
 	return (node_id::is_next(tokens, i, data) ||
 			tokens.is_next("subgraph") ||

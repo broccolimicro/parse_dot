@@ -19,13 +19,13 @@ namespace parse_dot
 struct attribute_list : parse::syntax
 {
 	attribute_list();
-	attribute_list(tokenizer &tokens, void *data = NULL);
+	attribute_list(tokenizer &tokens, std::any data=std::any());
 	~attribute_list();
 
 	vector<assignment_list> attributes;
 
-	void parse(tokenizer &tokens, void *data = NULL);
-	static bool is_next(tokenizer &tokens, int i = 1, void *data = NULL);
+	void parse(tokenizer &tokens, std::any data=std::any());
+	static bool is_next(tokenizer &tokens, int i = 1, std::any data=std::any());
 	static void register_syntax(tokenizer &tokens);
 
 	string to_string(string tab = "") const;

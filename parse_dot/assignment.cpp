@@ -19,7 +19,7 @@ assignment::assignment()
 	debug_name = "dot_assignment";
 }
 
-assignment::assignment(tokenizer &tokens, void *data)
+assignment::assignment(tokenizer &tokens, std::any data)
 {
 	debug_name = "dot_assignment";
 	parse(tokens, data);
@@ -37,7 +37,7 @@ assignment::~assignment()
 {
 }
 
-void assignment::parse(tokenizer &tokens, void *data)
+void assignment::parse(tokenizer &tokens, std::any data)
 {
 	tokens.syntax_start(this);
 
@@ -54,13 +54,13 @@ void assignment::parse(tokenizer &tokens, void *data)
 	tokens.expect<parse::number>();
 	tokens.expect<parse::text>();
 
-	if (tokens.decrement(__FILE__, __LINE__, data))
+	if (tokens.decrement(__FILE__, __LINE__))
 		first = tokens.next();
 
-	if (tokens.decrement(__FILE__, __LINE__, data))
+	if (tokens.decrement(__FILE__, __LINE__))
 		tokens.next();
 
-	if (tokens.decrement(__FILE__, __LINE__, data))
+	if (tokens.decrement(__FILE__, __LINE__))
 		second = tokens.next();
 
 	if ((int)first.size() >= 2 && first[0] == '\"' && first[first.size()-1] == '\"')
@@ -72,7 +72,7 @@ void assignment::parse(tokenizer &tokens, void *data)
 	tokens.syntax_end(this);
 }
 
-bool assignment::is_next(tokenizer &tokens, int i, void *data)
+bool assignment::is_next(tokenizer &tokens, int i, std::any data)
 {
 	return (tokens.is_next<parse::instance>(i) ||
 			tokens.is_next<parse::number>(i) ||

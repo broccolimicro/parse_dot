@@ -17,7 +17,7 @@ assignment_list::assignment_list()
 	debug_name = "dot_assignment_list";
 }
 
-assignment_list::assignment_list(tokenizer &tokens, void *data)
+assignment_list::assignment_list(tokenizer &tokens, std::any data)
 {
 	debug_name = "dot_assignment_list";
 	parse(tokens, data);
@@ -27,7 +27,7 @@ assignment_list::~assignment_list()
 {
 }
 
-void assignment_list::parse(tokenizer &tokens, void *data)
+void assignment_list::parse(tokenizer &tokens, std::any data)
 {
 	tokens.syntax_start(this);
 
@@ -40,10 +40,10 @@ void assignment_list::parse(tokenizer &tokens, void *data)
 	tokens.increment(true);
 	tokens.expect("[");
 
-	if (tokens.decrement(__FILE__, __LINE__, data))
+	if (tokens.decrement(__FILE__, __LINE__))
 		tokens.next();
 
-	while (tokens.decrement(__FILE__, __LINE__, data))
+	while (tokens.decrement(__FILE__, __LINE__))
 	{
 		as.push_back(assignment(tokens, data));
 
@@ -54,17 +54,17 @@ void assignment_list::parse(tokenizer &tokens, void *data)
 		tokens.expect(";");
 		tokens.expect(",");
 
-		if (tokens.decrement(__FILE__, __LINE__, data))
+		if (tokens.decrement(__FILE__, __LINE__))
 			tokens.next();
 	}
 
-	if (tokens.decrement(__FILE__, __LINE__, data))
+	if (tokens.decrement(__FILE__, __LINE__))
 		tokens.next();
 
 	tokens.syntax_end(this);
 }
 
-bool assignment_list::is_next(tokenizer &tokens, int i, void *data)
+bool assignment_list::is_next(tokenizer &tokens, int i, std::any data)
 {
 	return tokens.is_next("[", i);
 }

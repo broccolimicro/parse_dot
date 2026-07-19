@@ -20,7 +20,7 @@ graph::graph()
 	strict = false;
 }
 
-graph::graph(tokenizer &tokens, void *data)
+graph::graph(tokenizer &tokens, std::any data)
 {
 	debug_name = "dot_graph";
 	strict = false;
@@ -31,7 +31,7 @@ graph::~graph()
 {
 }
 
-void graph::parse(tokenizer &tokens, void *data)
+void graph::parse(tokenizer &tokens, std::any data)
 {
 	tokens.syntax_start(this);
 
@@ -56,22 +56,22 @@ void graph::parse(tokenizer &tokens, void *data)
 	tokens.increment(false);
 	tokens.expect("strict");
 
-	if (tokens.decrement(__FILE__, __LINE__, data))
+	if (tokens.decrement(__FILE__, __LINE__))
 	{
 		tokens.next();
 		strict = true;
 	}
 
-	if (tokens.decrement(__FILE__, __LINE__, data))
+	if (tokens.decrement(__FILE__, __LINE__))
 		type = tokens.next();
 
-	if (tokens.decrement(__FILE__, __LINE__, data))
+	if (tokens.decrement(__FILE__, __LINE__))
 		id = tokens.next();
 
-	if (tokens.decrement(__FILE__, __LINE__, data))
+	if (tokens.decrement(__FILE__, __LINE__))
 		tokens.next();
 
-	while (tokens.decrement(__FILE__, __LINE__, data))
+	while (tokens.decrement(__FILE__, __LINE__))
 	{
 		if (tokens.found<statement>()) {
 			statements.push_back(statement(tokens, data));
@@ -86,17 +86,17 @@ void graph::parse(tokenizer &tokens, void *data)
 		tokens.increment(false);
 		tokens.expect(";");
 
-		if (tokens.decrement(__FILE__, __LINE__, data))
+		if (tokens.decrement(__FILE__, __LINE__))
 			tokens.next();
 	}
 
-	if (tokens.decrement(__FILE__, __LINE__, data))
+	if (tokens.decrement(__FILE__, __LINE__))
 		tokens.next();
 
 	tokens.syntax_end(this);
 }
 
-bool graph::is_next(tokenizer &tokens, int i, void *data)
+bool graph::is_next(tokenizer &tokens, int i, std::any data)
 {
 	return (tokens.is_next("strict") || tokens.is_next("graph") || tokens.is_next("digraph") || tokens.is_next("subgraph"));
 }

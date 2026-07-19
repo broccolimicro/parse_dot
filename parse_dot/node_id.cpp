@@ -19,7 +19,7 @@ node_id::node_id()
 	debug_name = "dot_node_id";
 }
 
-node_id::node_id(tokenizer &tokens, void *data)
+node_id::node_id(tokenizer &tokens, std::any data)
 {
 	debug_name = "dot_node_id";
 	parse(tokens, data);
@@ -50,7 +50,7 @@ node_id::~node_id()
 {
 }
 
-void node_id::parse(tokenizer &tokens, void *data)
+void node_id::parse(tokenizer &tokens, std::any data)
 {
 	tokens.syntax_start(this);
 
@@ -59,7 +59,7 @@ void node_id::parse(tokenizer &tokens, void *data)
 	tokens.expect<parse::instance>();
 	tokens.expect<parse::text>();
 	tokens.expect<parse::number>();
-	if (tokens.decrement(__FILE__, __LINE__, data))
+	if (tokens.decrement(__FILE__, __LINE__))
 	{
 		id = tokens.next();
 
@@ -67,7 +67,7 @@ void node_id::parse(tokenizer &tokens, void *data)
 		tokens.increment(false);
 		tokens.expect(":");
 
-		if (tokens.decrement(__FILE__, __LINE__, data))
+		if (tokens.decrement(__FILE__, __LINE__))
 		{
 			tokens.next();
 
@@ -85,7 +85,7 @@ void node_id::parse(tokenizer &tokens, void *data)
 			tokens.expect("nw");
 			tokens.expect("c");
 			tokens.expect("_");
-			if (tokens.decrement(__FILE__, __LINE__, data))
+			if (tokens.decrement(__FILE__, __LINE__))
 			{
 				if (tokens.found("n") || tokens.found("ne") || tokens.found("e") || tokens.found("se") || tokens.found("s") ||
 					tokens.found("sw") || tokens.found("w") || tokens.found("nw") || tokens.found("c") || tokens.found("_"))
@@ -98,7 +98,7 @@ void node_id::parse(tokenizer &tokens, void *data)
 					tokens.increment(false);
 					tokens.expect(":");
 
-					if (tokens.decrement(__FILE__, __LINE__, data))
+					if (tokens.decrement(__FILE__, __LINE__))
 					{
 						tokens.next();
 						tokens.increment(true);
@@ -112,7 +112,7 @@ void node_id::parse(tokenizer &tokens, void *data)
 						tokens.expect("nw");
 						tokens.expect("c");
 						tokens.expect("_");
-						if (tokens.decrement(__FILE__, __LINE__, data))
+						if (tokens.decrement(__FILE__, __LINE__))
 							compass = tokens.next();
 					}
 				}
@@ -123,7 +123,7 @@ void node_id::parse(tokenizer &tokens, void *data)
 	tokens.syntax_end(this);
 }
 
-bool node_id::is_next(tokenizer &tokens, int i, void *data)
+bool node_id::is_next(tokenizer &tokens, int i, std::any data)
 {
 	return (tokens.is_next<parse::instance>(i) ||
 			tokens.is_next<parse::number>(i) ||

@@ -17,15 +17,15 @@ namespace parse_dot
 struct assignment : parse::syntax
 {
 	assignment();
-	assignment(tokenizer &tokens, void *data = NULL);
+	assignment(tokenizer &tokens, std::any data=std::any());
 	assignment(string first, string second);
 	~assignment();
 
 	string first;
 	string second;
 
-	void parse(tokenizer &tokens, void *data = NULL);
-	static bool is_next(tokenizer &tokens, int i = 1, void *data = NULL);
+	void parse(tokenizer &tokens, std::any data=std::any());
+	static bool is_next(tokenizer &tokens, int i = 1, std::any data=std::any());
 	static void register_syntax(tokenizer &tokens);
 
 	string to_string(string tab = "") const;

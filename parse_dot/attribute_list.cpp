@@ -17,7 +17,7 @@ attribute_list::attribute_list()
 	debug_name = "dot_attribute_list";
 }
 
-attribute_list::attribute_list(tokenizer &tokens, void *data)
+attribute_list::attribute_list(tokenizer &tokens, std::any data)
 {
 	debug_name = "dot_attribute_list";
 	parse(tokens, data);
@@ -27,14 +27,14 @@ attribute_list::~attribute_list()
 {
 }
 
-void attribute_list::parse(tokenizer &tokens, void *data)
+void attribute_list::parse(tokenizer &tokens, std::any data)
 {
 	tokens.syntax_start(this);
 
 	tokens.increment(false);
 	tokens.expect<assignment_list>();
 
-	while (tokens.decrement(__FILE__, __LINE__, data))
+	while (tokens.decrement(__FILE__, __LINE__))
 	{
 		attributes.push_back(assignment_list(tokens, data));
 
@@ -45,7 +45,7 @@ void attribute_list::parse(tokenizer &tokens, void *data)
 	tokens.syntax_end(this);
 }
 
-bool attribute_list::is_next(tokenizer &tokens, int i, void *data)
+bool attribute_list::is_next(tokenizer &tokens, int i, std::any data)
 {
 	return assignment_list::is_next(tokens, i, data);
 }
